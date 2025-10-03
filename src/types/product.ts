@@ -6,11 +6,14 @@ export interface Product {
   barcode?: string;
   stock: number;
   image?: string;
+  expiryDate?: Date;
 }
 
 export interface BillItem extends Product {
   quantity: number;
   subtotal: number;
+  discount: number;
+  discountType: 'percentage' | 'fixed';
 }
 
 export interface Bill {

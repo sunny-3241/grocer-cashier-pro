@@ -8,6 +8,7 @@ export const products: Product[] = [
     category: "Fruits",
     barcode: "7890123456789",
     stock: 150,
+    expiryDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // expires in 2 days
   },
   {
     id: "2",
@@ -16,6 +17,7 @@ export const products: Product[] = [
     category: "Fruits",
     barcode: "7890123456790",
     stock: 200,
+    expiryDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // expires in 5 days
   },
   {
     id: "3",
@@ -24,6 +26,7 @@ export const products: Product[] = [
     category: "Bakery",
     barcode: "7890123456791",
     stock: 80,
+    expiryDate: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // expires in 1 day - ALERT!
   },
   {
     id: "4",
@@ -32,6 +35,7 @@ export const products: Product[] = [
     category: "Dairy",
     barcode: "7890123456792",
     stock: 120,
+    expiryDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // expires in 3 days
   },
   {
     id: "5",
@@ -40,6 +44,7 @@ export const products: Product[] = [
     category: "Dairy",
     barcode: "7890123456793",
     stock: 60,
+    expiryDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // expires in 14 days
   },
   {
     id: "6",
@@ -48,6 +53,7 @@ export const products: Product[] = [
     category: "Vegetables",
     barcode: "7890123456794",
     stock: 100,
+    expiryDate: new Date(Date.now() + 4 * 24 * 60 * 60 * 1000), // expires in 4 days
   },
   {
     id: "7",
@@ -56,6 +62,7 @@ export const products: Product[] = [
     category: "Vegetables",
     barcode: "7890123456795",
     stock: 130,
+    expiryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // expires in 7 days
   },
   {
     id: "8",
@@ -64,6 +71,7 @@ export const products: Product[] = [
     category: "Beverages",
     barcode: "7890123456796",
     stock: 90,
+    expiryDate: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // expires in 10 days
   },
   {
     id: "9",
@@ -72,6 +80,7 @@ export const products: Product[] = [
     category: "Snacks",
     barcode: "7890123456797",
     stock: 200,
+    expiryDate: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000), // expires in 60 days
   },
   {
     id: "10",
@@ -80,6 +89,7 @@ export const products: Product[] = [
     category: "Meat",
     barcode: "7890123456798",
     stock: 50,
+    expiryDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // expires in 2 days
   },
   {
     id: "11",
@@ -88,6 +98,7 @@ export const products: Product[] = [
     category: "Grains",
     barcode: "7890123456799",
     stock: 75,
+    expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // expires in 365 days
   },
   {
     id: "12",
@@ -96,5 +107,6 @@ export const products: Product[] = [
     category: "Dairy",
     barcode: "7890123456800",
     stock: 110,
+    expiryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // expires in 7 days
   },
 ];
