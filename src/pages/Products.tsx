@@ -74,7 +74,7 @@ const Products = () => {
                       {product.barcode}
                     </TableCell>
                     <TableCell className="text-right font-semibold">
-                      ${product.price.toFixed(2)}
+                      ₹{product.price.toFixed(2)}
                     </TableCell>
                     <TableCell className="text-right">
                       <span

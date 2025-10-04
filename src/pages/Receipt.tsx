@@ -81,12 +81,12 @@ const Receipt = () => {
                 <div className="flex justify-between items-start mb-1">
                   <h3 className="font-semibold">{item.name}</h3>
                   <span className="font-semibold">
-                    ${item.subtotal.toFixed(2)}
+                    ₹{item.subtotal.toFixed(2)}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm text-muted-foreground">
                   <span>
-                    {item.quantity} × ${item.price.toFixed(2)}
+                    {item.quantity} × ₹{item.price.toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -98,16 +98,16 @@ const Receipt = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span>Subtotal:</span>
-              <span className="font-semibold">${bill.total.toFixed(2)}</span>
+              <span className="font-semibold">₹{bill.total.toFixed(2)}</span>
             </div>
             <div className="flex justify-between">
               <span>Tax (8%):</span>
-              <span className="font-semibold">${bill.tax.toFixed(2)}</span>
+              <span className="font-semibold">₹{bill.tax.toFixed(2)}</span>
             </div>
             <Separator className="my-4" />
             <div className="flex justify-between text-xl font-bold">
               <span>Total:</span>
-              <span className="text-primary">${bill.grandTotal.toFixed(2)}</span>
+              <span className="text-primary">₹{bill.grandTotal.toFixed(2)}</span>
             </div>
           </div>
 

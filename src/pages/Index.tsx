@@ -88,15 +88,20 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* About Section */}
       <section className="container mx-auto px-4 py-16">
         <div className="text-center mb-12 animate-slide-up">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Powerful Features at Your Fingertips
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            About Our Store
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Everything you need to run your grocery store efficiently and professionally
-          </p>
+          <div className="text-muted-foreground text-lg max-w-3xl mx-auto space-y-4">
+            <p className="leading-relaxed">
+              Welcome to our modern grocery store, where quality meets convenience. We pride ourselves on offering fresh, high-quality products at competitive prices while delivering exceptional customer service.
+            </p>
+            <p className="leading-relaxed">
+              Our advanced POS system ensures quick checkouts, accurate inventory management, and seamless shopping experiences. With features like budget tracking, expiry alerts, and flexible payment options, we're committed to making your shopping experience effortless.
+            </p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">

@@ -4,7 +4,7 @@ import { BillItem } from "@/types/product";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Search, ShoppingCart, Trash2, Plus, Minus, Receipt, AlertTriangle, Wallet, CreditCard, Smartphone, Banknote, DollarSign, Percent } from "lucide-react";
+import { Search, ShoppingCart, Trash2, Plus, Minus, Receipt, AlertTriangle, Wallet, CreditCard, Smartphone, Banknote, IndianRupee, Percent } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Switch } from "@/components/ui/switch";
@@ -252,7 +252,7 @@ const Billing = () => {
                         </p>
                       )}
                       <p className="text-lg font-bold text-primary">
-                        ${product.price.toFixed(2)}
+                        ₹{product.price.toFixed(2)}
                       </p>
                       <p className="text-xs text-muted-foreground">
                         Stock: {product.stock}
@@ -294,9 +294,9 @@ const Billing = () => {
                     {budget > 0 && (
                       <div className={`text-sm font-semibold ${budgetExceeded ? 'text-destructive' : 'text-primary'}`}>
                         {budgetExceeded ? (
-                          <span>⚠️ Over budget by ${(total - budget).toFixed(2)}</span>
+                          <span>⚠️ Over budget by ₹{(total - budget).toFixed(2)}</span>
                         ) : (
-                          <span>💰 Remaining: ${budgetRemaining.toFixed(2)}</span>
+                          <span>💰 Remaining: ₹{budgetRemaining.toFixed(2)}</span>
                         )}
                       </div>
                     )}
@@ -355,7 +355,7 @@ const Billing = () => {
                             </Button>
                           </div>
                           <p className="text-xs text-muted-foreground">
-                            ${item.price.toFixed(2)} ea.
+                            ₹{item.price.toFixed(2)} ea.
                           </p>
                         </div>
                         {/* Item Discount */}
@@ -373,15 +373,15 @@ const Billing = () => {
                             onClick={() => updateDiscount(item.id, item.discount, item.discountType === 'percentage' ? 'fixed' : 'percentage')}
                             className="h-7 px-2"
                           >
-                            {item.discountType === 'percentage' ? <Percent className="h-3 w-3" /> : <DollarSign className="h-3 w-3" />}
+                            {item.discountType === 'percentage' ? <Percent className="h-3 w-3" /> : <IndianRupee className="h-3 w-3" />}
                           </Button>
                         </div>
                         <div className="flex items-center justify-between text-sm">
                           <span className="text-muted-foreground">
-                            {item.discount > 0 && `(-$${(item.discountType === 'percentage' ? (item.quantity * item.price * item.discount / 100) : item.discount * item.quantity).toFixed(2)})`}
+                            {item.discount > 0 && `(-₹${(item.discountType === 'percentage' ? (item.quantity * item.price * item.discount / 100) : item.discount * item.quantity).toFixed(2)})`}
                           </span>
                           <p className="font-bold text-primary">
-                            ${calculateItemTotal(item).toFixed(2)}
+                            ₹{calculateItemTotal(item).toFixed(2)}
                           </p>
                         </div>
                       </Card>
@@ -408,29 +408,29 @@ const Billing = () => {
                       onClick={() => setOverallDiscountType(overallDiscountType === 'percentage' ? 'fixed' : 'percentage')}
                       className="h-8"
                     >
-                      {overallDiscountType === 'percentage' ? <Percent className="h-3 w-3" /> : <DollarSign className="h-3 w-3" />}
+                      {overallDiscountType === 'percentage' ? <Percent className="h-3 w-3" /> : <IndianRupee className="h-3 w-3" />}
                     </Button>
                   </div>
                 </div>
 
                 <div className="flex justify-between text-sm">
                   <span>Subtotal:</span>
-                  <span className="font-semibold">${subtotal.toFixed(2)}</span>
+                  <span className="font-semibold">₹{subtotal.toFixed(2)}</span>
                 </div>
                 {overallDiscount > 0 && (
                   <div className="flex justify-between text-sm text-green-600">
                     <span>Overall Discount:</span>
-                    <span className="font-semibold">-${overallDiscountAmount.toFixed(2)}</span>
+                    <span className="font-semibold">-₹{overallDiscountAmount.toFixed(2)}</span>
                   </div>
                 )}
                 <div className="flex justify-between text-sm">
                   <span>Tax (8%):</span>
-                  <span className="font-semibold">${tax.toFixed(2)}</span>
+                  <span className="font-semibold">₹{tax.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-xl font-bold border-t pt-2">
                   <span>Total:</span>
                   <span className={budgetExceeded ? "text-destructive" : "text-primary"}>
-                    ${total.toFixed(2)}
+                    ₹{total.toFixed(2)}
                   </span>
                 </div>
               </div>
