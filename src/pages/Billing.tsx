@@ -225,8 +225,18 @@ const Billing = () => {
                           <AlertTriangle className="h-4 w-4" />
                         </div>
                       )}
-                      <div className="aspect-square bg-muted rounded-md mb-3 flex items-center justify-center">
-                        <ShoppingCart className="h-10 w-10 text-muted-foreground" />
+                      <div className="aspect-square bg-muted rounded-md mb-3 overflow-hidden">
+                        {product.image ? (
+                          <img 
+                            src={product.image} 
+                            alt={product.name}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <ShoppingCart className="h-10 w-10 text-muted-foreground" />
+                          </div>
+                        )}
                       </div>
                       <h3 className="font-semibold text-sm mb-1 line-clamp-2">
                         {product.name}
