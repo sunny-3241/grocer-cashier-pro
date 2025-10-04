@@ -32,32 +32,34 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
-        {/* Background Image with Overlay */}
+        {/* Background with Mesh Gradient */}
         <div className="absolute inset-0">
           <img
             src={heroImage}
             alt="Modern grocery store"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover opacity-20"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/85 to-primary/75" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent to-primary" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(139,92,246,0.3),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(244,63,94,0.3),transparent_50%)]" />
         </div>
 
         {/* Decorative Elements */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary-foreground/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "1s" }} />
+        <div className="absolute top-20 left-10 w-96 h-96 bg-primary-foreground/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-10 right-20 w-[500px] h-[500px] bg-accent/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "1.5s" }} />
+        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-primary/20 rounded-full blur-2xl animate-float" style={{ animationDelay: "0.5s" }} />
 
         {/* Hero Content */}
         <div className="relative z-10 container mx-auto px-4 text-center animate-fade-in">
-          <div className="inline-flex items-center gap-2 bg-primary-foreground/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-primary-foreground/30">
-            <Sparkles className="h-4 w-4 text-primary-foreground" />
-            <span className="text-sm text-primary-foreground font-medium">Modern POS Solution</span>
+          <div className="inline-flex items-center gap-2 bg-primary-foreground/15 backdrop-blur-md px-5 py-2.5 rounded-full mb-6 border border-primary-foreground/20 shadow-lg">
+            <Sparkles className="h-4 w-4 text-primary-foreground animate-pulse" />
+            <span className="text-sm text-primary-foreground font-semibold tracking-wide">Next-Gen POS Solution</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold text-primary-foreground mb-6 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-bold text-primary-foreground mb-6 leading-tight drop-shadow-2xl">
             Welcome to Your
             <br />
-            <span className="bg-gradient-to-r from-accent to-primary-foreground bg-clip-text text-transparent">
-              Grocery Store POS
+            <span className="bg-gradient-to-r from-primary-foreground via-accent-foreground to-primary-foreground bg-clip-text text-transparent animate-pulse">
+              Smart Grocery POS
             </span>
           </h1>
 
@@ -69,7 +71,7 @@ const Index = () => {
             <Button
               size="lg"
               onClick={() => navigate("/billing")}
-              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 text-lg h-14 px-8 shadow-lg hover:shadow-xl transition-all"
+              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 hover:scale-105 text-lg h-14 px-8 shadow-2xl hover:shadow-primary-foreground/20 transition-all duration-300 font-semibold"
             >
               Start New Sale
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -78,7 +80,7 @@ const Index = () => {
               size="lg"
               variant="outline"
               onClick={() => navigate("/products")}
-              className="bg-transparent border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 text-lg h-14 px-8"
+              className="bg-primary-foreground/10 backdrop-blur-sm border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/20 hover:border-primary-foreground/50 hover:scale-105 text-lg h-14 px-8 transition-all duration-300 font-semibold"
             >
               View Products
             </Button>
@@ -103,7 +105,7 @@ const Index = () => {
             return (
               <Card
                 key={index}
-                className="group relative overflow-hidden border-2 hover:border-primary transition-all duration-300 hover:shadow-2xl cursor-pointer animate-slide-up"
+                className="group relative overflow-hidden border-2 border-border hover:border-primary/50 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(139,92,246,0.3)] cursor-pointer animate-slide-up backdrop-blur-sm bg-card/95"
                 style={{ animationDelay: `${index * 0.1}s` }}
                 onClick={() => navigate(feature.path)}
               >
@@ -143,7 +145,7 @@ const Index = () => {
         </div>
 
         {/* Stats Section */}
-        <Card className="p-8 bg-gradient-to-br from-muted/50 to-muted border-2 animate-fade-in">
+        <Card className="p-8 bg-gradient-to-br from-primary/5 via-accent/5 to-muted border-2 border-primary/20 shadow-elegant animate-fade-in backdrop-blur-sm">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center group cursor-pointer">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors">
