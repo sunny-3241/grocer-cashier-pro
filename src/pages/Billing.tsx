@@ -11,6 +11,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 
 const TAX_RATE = 0.08; // 8% tax
+const STORE_DISCOUNT = 10; // 10% store discount (fixed)
 
 const getExpiryStatus = (expiryDate?: Date) => {
   if (!expiryDate) return null;
@@ -78,7 +79,7 @@ const Billing = () => {
           ...product,
           quantity: 1,
           subtotal: product.price,
-          discount: 0,
+          discount: STORE_DISCOUNT,
           discountType: 'percentage',
         },
       ]);
@@ -358,23 +359,9 @@ const Billing = () => {
                             ₹{item.price.toFixed(2)} ea.
                           </p>
                         </div>
-                        {/* Item Discount */}
-                        <div className="flex items-center gap-2 mb-2">
-                          <Input
-                            type="number"
-                            placeholder="Discount"
-                            value={item.discount || ''}
-                            onChange={(e) => updateDiscount(item.id, Number(e.target.value), item.discountType)}
-                            className="h-7 text-xs flex-1"
-                          />
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => updateDiscount(item.id, item.discount, item.discountType === 'percentage' ? 'fixed' : 'percentage')}
-                            className="h-7 px-2"
-                          >
-                            {item.discountType === 'percentage' ? <Percent className="h-3 w-3" /> : <IndianRupee className="h-3 w-3" />}
-                          </Button>
+                        {/* Store Discount Display */}
+                        <div className="flex items-center gap-2 mb-2 px-2 py-1 bg-green-50 dark:bg-green-950 rounded">
+                          <span className="text-xs font-semibold text-green-700 dark:text-green-400">Store Discount: 10%</span>
                         </div>
                         <div className="flex items-center justify-between text-sm">
                           <span className="text-muted-foreground">
@@ -391,28 +378,6 @@ const Billing = () => {
               </div>
 
               <div className="border-t pt-4 space-y-3">
-                {/* Overall Discount */}
-                <div className="p-3 bg-muted rounded-lg">
-                  <Label className="text-xs font-semibold mb-2 block">Overall Discount</Label>
-                  <div className="flex items-center gap-2">
-                    <Input
-                      type="number"
-                      placeholder="Discount"
-                      value={overallDiscount || ''}
-                      onChange={(e) => setOverallDiscount(Number(e.target.value))}
-                      className="h-8 text-sm"
-                    />
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setOverallDiscountType(overallDiscountType === 'percentage' ? 'fixed' : 'percentage')}
-                      className="h-8"
-                    >
-                      {overallDiscountType === 'percentage' ? <Percent className="h-3 w-3" /> : <IndianRupee className="h-3 w-3" />}
-                    </Button>
-                  </div>
-                </div>
-
                 <div className="flex justify-between text-sm">
                   <span>Subtotal:</span>
                   <span className="font-semibold">₹{subtotal.toFixed(2)}</span>
