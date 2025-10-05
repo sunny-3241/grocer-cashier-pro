@@ -56,10 +56,13 @@ const Index = () => {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold text-primary-foreground mb-6 leading-tight drop-shadow-2xl">
-            Welcome to Your
+            Welcome to
             <br />
-            <span className="bg-gradient-to-r from-primary-foreground via-accent-foreground to-primary-foreground bg-clip-text text-transparent animate-pulse">
-              Smart Grocery POS
+            <span className="relative inline-block">
+              <span className="bg-gradient-to-r from-primary-foreground via-accent-foreground to-primary-foreground bg-clip-text text-transparent font-black tracking-tight">
+                FreshMart Express
+              </span>
+              <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary-foreground via-accent-foreground to-primary-foreground opacity-60 blur-sm"></span>
             </span>
           </h1>
 
@@ -90,9 +93,12 @@ const Index = () => {
 
       {/* About Section */}
       <section className="container mx-auto px-4 py-16">
-        <div className="text-center mb-12 animate-slide-up">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            About Our Store
+          <div className="text-center mb-12 animate-slide-up">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
+            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+              About FreshMart Express
+            </span>
+            <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-primary via-accent to-primary opacity-50"></div>
           </h2>
           <div className="text-muted-foreground text-lg max-w-3xl mx-auto space-y-4">
             <p className="leading-relaxed">

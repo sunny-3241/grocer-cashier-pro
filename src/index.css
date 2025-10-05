@@ -8,25 +8,25 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 200 25% 98%;
-    --foreground: 200 35% 10%;
+    --background: 220 25% 97%;
+    --foreground: 220 35% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 200 35% 10%;
+    --card-foreground: 220 35% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 200 35% 10%;
+    --popover-foreground: 220 35% 12%;
 
-    --primary: 180 65% 45%;
+    --primary: 275 80% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 200 20% 92%;
-    --secondary-foreground: 200 35% 10%;
+    --secondary: 220 20% 92%;
+    --secondary-foreground: 220 35% 12%;
 
-    --muted: 200 20% 92%;
-    --muted-foreground: 200 15% 45%;
+    --muted: 220 20% 92%;
+    --muted-foreground: 220 15% 45%;
 
-    --accent: 25 95% 55%;
+    --accent: 340 85% 60%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -38,11 +38,11 @@ All colors MUST be HSL.
 
     --radius: 1rem;
 
-    --gradient-hero: linear-gradient(135deg, hsl(180 65% 45%) 0%, hsl(25 95% 55%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(200 20% 95%) 100%);
-    --gradient-accent: linear-gradient(to right, hsl(180 65% 45%), hsl(160 70% 50%));
-    --shadow-glow: 0 20px 60px hsl(180 65% 45% / 0.3);
-    --shadow-elegant: 0 10px 40px hsl(180 65% 45% / 0.15);
+    --gradient-hero: linear-gradient(135deg, hsl(275 80% 55%) 0%, hsl(340 85% 60%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(220 20% 95%) 100%);
+    --gradient-accent: linear-gradient(to right, hsl(275 80% 55%), hsl(290 75% 50%));
+    --shadow-glow: 0 20px 60px hsl(275 80% 55% / 0.3);
+    --shadow-elegant: 0 10px 40px hsl(275 80% 55% / 0.15);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
@@ -63,25 +63,25 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 200 35% 8%;
-    --foreground: 200 25% 96%;
+    --background: 220 35% 10%;
+    --foreground: 220 25% 96%;
 
-    --card: 200 30% 12%;
-    --card-foreground: 200 25% 96%;
+    --card: 220 30% 14%;
+    --card-foreground: 220 25% 96%;
 
-    --popover: 200 30% 12%;
-    --popover-foreground: 200 25% 96%;
+    --popover: 220 30% 14%;
+    --popover-foreground: 220 25% 96%;
 
-    --primary: 180 65% 45%;
+    --primary: 275 80% 60%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 200 25% 16%;
-    --secondary-foreground: 200 25% 96%;
+    --secondary: 220 25% 18%;
+    --secondary-foreground: 220 25% 96%;
 
-    --muted: 200 25% 16%;
-    --muted-foreground: 200 17% 65%;
+    --muted: 220 25% 18%;
+    --muted-foreground: 220 17% 65%;
 
-    --accent: 25 95% 55%;
+    --accent: 340 85% 65%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
