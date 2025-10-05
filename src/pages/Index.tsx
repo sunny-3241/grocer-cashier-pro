@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Package, ArrowRight, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import heroImage from "@/assets/hero-grocery.jpg";
+import heroImage from "@/assets/freshmart-hero.jpg";
 import billingIcon from "@/assets/billing-icon.jpg";
 import productsIcon from "@/assets/products-icon.jpg";
 
@@ -36,11 +36,11 @@ const Index = () => {
         <div className="absolute inset-0">
           <img
             src={heroImage}
-            alt="Modern grocery store"
-            className="w-full h-full object-cover opacity-20"
+            alt="FreshMart grocery store"
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent to-primary" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(139,92,246,0.3),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(244,63,94,0.3),transparent_50%)]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-primary/60 to-accent/70" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(72,187,120,0.4),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(163,230,53,0.3),transparent_50%)]" />
         </div>
 
         {/* Decorative Elements */}
