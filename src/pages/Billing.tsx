@@ -4,14 +4,16 @@ import { BillItem } from "@/types/product";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Search, ShoppingCart, Trash2, Plus, Minus, Receipt, AlertTriangle, Wallet, CreditCard, Smartphone, Banknote, IndianRupee, Percent } from "lucide-react";
+import { Search, ShoppingCart, Trash2, Plus, Minus, Receipt, AlertTriangle, Wallet, CreditCard, Smartphone, Banknote, LogIn, LogOut, Shield, Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/contexts/AuthContext";
 
-const TAX_RATE = 0.08; // 8% tax
+const GST_RATE = 0.05; // 5% GST for India
 const STORE_DISCOUNT = 10; // 10% store discount (fixed)
+const LOYALTY_DISCOUNT = 5; // 5% loyalty customer discount
 
 const getExpiryStatus = (expiryDate?: Date) => {
   if (!expiryDate) return null;
@@ -32,7 +34,9 @@ const Billing = () => {
   const [overallDiscount, setOverallDiscount] = useState(0);
   const [overallDiscountType, setOverallDiscountType] = useState<'percentage' | 'fixed'>('percentage');
   const [paymentMethod, setPaymentMethod] = useState<string>("");
+  const [isLoyaltyCustomer, setIsLoyaltyCustomer] = useState(false);
   const navigate = useNavigate();
+  const { user, isAdmin, signOut } = useAuth();
 
   const filteredProducts = products.filter(
     (product) =>
@@ -119,6 +123,10 @@ const Billing = () => {
   };
 
   const updateDiscount = (productId: string, discount: number, discountType: 'percentage' | 'fixed') => {
+    if (!isAdmin) {
+      toast.error("Only admin can change item discounts");
+      return;
+    }
     setBillItems(
       billItems.map((item) =>
         item.id === productId
@@ -137,15 +145,28 @@ const Billing = () => {
   };
 
   const subtotal = billItems.reduce((sum, item) => sum + calculateItemTotal(item), 0);
+  
+  // Apply loyalty discount if enabled
+  const loyaltyDiscountAmount = isLoyaltyCustomer ? subtotal * (LOYALTY_DISCOUNT / 100) : 0;
+  const subtotalAfterLoyalty = subtotal - loyaltyDiscountAmount;
+  
+  // Apply overall discount
   const overallDiscountAmount = overallDiscountType === 'percentage' 
-    ? subtotal * (overallDiscount / 100)
+    ? subtotalAfterLoyalty * (overallDiscount / 100)
     : overallDiscount;
-  const subtotalAfterDiscount = subtotal - overallDiscountAmount;
-  const tax = subtotalAfterDiscount * TAX_RATE;
-  const total = subtotalAfterDiscount + tax;
+  const subtotalAfterDiscount = subtotalAfterLoyalty - overallDiscountAmount;
+  
+  // Calculate GST (5%)
+  const gst = subtotalAfterDiscount * GST_RATE;
+  const total = subtotalAfterDiscount + gst;
   
   const budgetExceeded = budgetMode && budget > 0 && total > budget;
   const budgetRemaining = budgetMode && budget > 0 ? budget - total : 0;
+
+  const handleSignOut = async () => {
+    await signOut();
+    toast.success("Signed out successfully");
+  };
 
   const completeSale = () => {
     if (billItems.length === 0) {
@@ -167,15 +188,18 @@ const Billing = () => {
       id: `BILL-${Date.now()}`,
       items: billItems,
       total: subtotal,
-      tax: tax,
+      loyaltyDiscount: loyaltyDiscountAmount,
+      tax: gst,
       grandTotal: total,
       date: new Date(),
+      isLoyaltyCustomer,
     };
 
     navigate("/receipt", { state: { bill, paymentMethod } });
     setBillItems([]);
     setPaymentMethod("");
     setOverallDiscount(0);
+    setIsLoyaltyCustomer(false);
     toast.success("Sale completed successfully");
   };
 
@@ -184,9 +208,33 @@ const Billing = () => {
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-primary">Grocery Store POS</h1>
-          <Button variant="outline" onClick={() => navigate("/")}>
-            Back to Dashboard
-          </Button>
+          <div className="flex items-center gap-3">
+            {user ? (
+              <>
+                <div className="flex items-center gap-2 text-sm">
+                  {isAdmin && (
+                    <span className="flex items-center gap-1 text-amber-600 dark:text-amber-400 font-semibold">
+                      <Shield className="h-4 w-4" />
+                      Admin
+                    </span>
+                  )}
+                  <span className="text-muted-foreground">{user.email}</span>
+                </div>
+                <Button variant="outline" size="sm" onClick={handleSignOut}>
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <Button variant="outline" size="sm" onClick={() => navigate("/auth")}>
+                <LogIn className="h-4 w-4 mr-2" />
+                Sign In
+              </Button>
+            )}
+            <Button variant="outline" onClick={() => navigate("/")}>
+              Back to Dashboard
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -305,7 +353,29 @@ const Billing = () => {
                 )}
               </div>
 
-              <div className="space-y-3 mb-6 max-h-[calc(100vh-450px)] overflow-y-auto">
+              {/* Loyalty Customer Toggle */}
+              <div className="mb-4 p-3 bg-amber-50 dark:bg-amber-950 rounded-lg border border-amber-200 dark:border-amber-800">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Star className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                    <Label htmlFor="loyalty-mode" className="font-semibold text-amber-800 dark:text-amber-200">
+                      Daily/Loyalty Customer
+                    </Label>
+                  </div>
+                  <Switch
+                    id="loyalty-mode"
+                    checked={isLoyaltyCustomer}
+                    onCheckedChange={setIsLoyaltyCustomer}
+                  />
+                </div>
+                {isLoyaltyCustomer && (
+                  <p className="text-xs text-amber-700 dark:text-amber-300 mt-2">
+                    +5% extra discount applied!
+                  </p>
+                )}
+              </div>
+
+              <div className="space-y-3 mb-6 max-h-[calc(100vh-550px)] overflow-y-auto">
                 {billItems.length === 0 ? (
                   <p className="text-center text-muted-foreground py-8">
                     No items in bill
@@ -359,9 +429,24 @@ const Billing = () => {
                             ₹{item.price.toFixed(2)} ea.
                           </p>
                         </div>
-                        {/* Store Discount Display */}
+                        {/* Store Discount Display - Admin Editable */}
                         <div className="flex items-center gap-2 mb-2 px-2 py-1 bg-green-50 dark:bg-green-950 rounded">
-                          <span className="text-xs font-semibold text-green-700 dark:text-green-400">Store Discount: 10%</span>
+                          <span className="text-xs text-green-700 dark:text-green-400">Discount:</span>
+                          {isAdmin ? (
+                            <Input
+                              type="number"
+                              value={item.discount}
+                              onChange={(e) => updateDiscount(item.id, Number(e.target.value), item.discountType)}
+                              className="h-6 w-16 text-xs"
+                              min={0}
+                              max={100}
+                            />
+                          ) : (
+                            <span className="text-xs font-semibold text-green-700 dark:text-green-400">{item.discount}%</span>
+                          )}
+                          {!isAdmin && (
+                            <span className="text-xs text-muted-foreground ml-auto">(Admin only)</span>
+                          )}
                         </div>
                         <div className="flex items-center justify-between text-sm">
                           <span className="text-muted-foreground">
@@ -382,6 +467,12 @@ const Billing = () => {
                   <span>Subtotal:</span>
                   <span className="font-semibold">₹{subtotal.toFixed(2)}</span>
                 </div>
+                {isLoyaltyCustomer && (
+                  <div className="flex justify-between text-sm text-amber-600">
+                    <span>Loyalty Discount (5%):</span>
+                    <span className="font-semibold">-₹{loyaltyDiscountAmount.toFixed(2)}</span>
+                  </div>
+                )}
                 {overallDiscount > 0 && (
                   <div className="flex justify-between text-sm text-green-600">
                     <span>Overall Discount:</span>
@@ -389,8 +480,8 @@ const Billing = () => {
                   </div>
                 )}
                 <div className="flex justify-between text-sm">
-                  <span>Tax (8%):</span>
-                  <span className="font-semibold">₹{tax.toFixed(2)}</span>
+                  <span>GST (5%):</span>
+                  <span className="font-semibold">₹{gst.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-xl font-bold border-t pt-2">
                   <span>Total:</span>
@@ -440,8 +531,8 @@ const Billing = () => {
               </div>
 
               <Button
-                onClick={completeSale}
                 className="w-full mt-6 h-12 text-lg"
+                onClick={completeSale}
                 disabled={billItems.length === 0 || !paymentMethod || budgetExceeded}
               >
                 Complete Sale

@@ -1,14 +1,15 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Package, ArrowRight, Sparkles } from "lucide-react";
+import { ShoppingCart, Package, ArrowRight, Sparkles, LogIn, LogOut, Shield } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/freshmart-hero.jpg";
 import billingIcon from "@/assets/billing-icon.jpg";
 import productsIcon from "@/assets/products-icon.jpg";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Index = () => {
   const navigate = useNavigate();
-
+  const { user, isAdmin, signOut } = useAuth();
   const features = [
     {
       icon: ShoppingCart,
@@ -28,9 +29,47 @@ const Index = () => {
     },
   ];
 
+  const handleSignOut = async () => {
+    await signOut();
+  };
+
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
+      {/* Top Bar with Login */}
+      <header className="absolute top-0 left-0 right-0 z-20 p-4">
+        <div className="container mx-auto flex justify-end">
+          {user ? (
+            <div className="flex items-center gap-3 bg-primary-foreground/20 backdrop-blur-md px-4 py-2 rounded-full border border-primary-foreground/20">
+              {isAdmin && (
+                <span className="flex items-center gap-1 text-amber-400 font-semibold text-sm">
+                  <Shield className="h-4 w-4" />
+                  Admin
+                </span>
+              )}
+              <span className="text-primary-foreground text-sm">{user.email}</span>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={handleSignOut}
+                className="text-primary-foreground hover:bg-primary-foreground/20"
+              >
+                <LogOut className="h-4 w-4 mr-1" />
+                Sign Out
+              </Button>
+            </div>
+          ) : (
+            <Button
+              size="sm"
+              onClick={() => navigate("/auth")}
+              className="bg-primary-foreground/20 backdrop-blur-md text-primary-foreground hover:bg-primary-foreground/30 border border-primary-foreground/20"
+            >
+              <LogIn className="h-4 w-4 mr-2" />
+              Sign In
+            </Button>
+          )}
+        </div>
+      </header>
+
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
         {/* Background with Mesh Gradient */}
         <div className="absolute inset-0">
